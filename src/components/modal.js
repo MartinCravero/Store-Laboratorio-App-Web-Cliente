@@ -1,3 +1,6 @@
+import { getFromLocalStorage, saveToLocalStorage, setItemToLocalStorage } from "../storage/storage.js";
+import { addEventListener, contador } from "./contador.js";
+
 export function Modal (prod){
 
     let container = document.querySelector('#productModal');
@@ -14,19 +17,20 @@ export function Modal (prod){
                     <div class="col-md-6">
                         <img src="${prod.image}" class="img-fluid" alt="${prod.title}">
                     </div>
-                    <div class="col-md-6">
-                        <p>${prod.description}</p>
-                    </div>   
-                    <div class="col-12 d-flex justify-content-end align-items-start">
-                        <p style="width:150px">
-                            Precio:<small> USD $${prod.price}</small>
-                        </p>
-                    </div>                  
+                    <div class="col-md-6 d-flex justify-content-center aling-items-center">
+                        <div class="d-flex flex-column gap-3">
+                            <p>${prod.description}</p>
+                            <p style="width:150px">
+                                Precio:<small> USD $${prod.price}</small>
+                            </p>
+                            ${contador(prod.id)}  
+                        </div>
+                    </div>     
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary">Agregar a carrito</button>
+                <button type="button" class="btn btn-primary" id="addToCartBtn-${prod.id}">Agregar a carrito</button>
             </div>
         </div>
     </div>`;
@@ -36,4 +40,14 @@ export function Modal (prod){
     const bootstrapModal = new bootstrap.Modal(container);
     bootstrapModal.show();
 
+    addEventListener(prod.id, 1);
+    let btnAddToCart = document.querySelector(`#addToCartBtn-${prod.id}`);
+    btnAddToCart.addEventListener('click', ()=> {
+        prod.qtty = ++document.querySelector(`#contador-${prod.id}`).textContent;
+        let dataStorage = getFromLocalStorage();
+        let filtered = dataStorage.filter((p)=> p.id !== prod.id);
+        filtered.push(prod);
+        setItemToLocalStorage(filtered);
+        // saveToLocalStorage(prod);
+    })
 }
