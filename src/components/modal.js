@@ -1,5 +1,7 @@
-import { getFromLocalStorage, saveToLocalStorage, setItemToLocalStorage } from "../storage/storage.js";
+import { getFromLocalStorage, saveToLocalStorage, setItemToLocalStorage, updateItemStorage } from "../storage/storage.js";
+import { cartList } from "./cartList.js";
 import { addEventListener, contador } from "./contador.js";
+import { toast } from "./toast.js";
 
 export function Modal (prod){
 
@@ -43,11 +45,14 @@ export function Modal (prod){
     addEventListener(prod.id, 1);
     let btnAddToCart = document.querySelector(`#addToCartBtn-${prod.id}`);
     btnAddToCart.addEventListener('click', ()=> {
-        prod.qtty = ++document.querySelector(`#contador-${prod.id}`).textContent;
-        let dataStorage = getFromLocalStorage();
-        let filtered = dataStorage.filter((p)=> p.id !== prod.id);
-        filtered.push(prod);
-        setItemToLocalStorage(filtered);
-        // saveToLocalStorage(prod);
-    })
+        let inptcantidad = document.querySelector(`#contador-${prod.id}`);
+        let qtty = parseInt(inptcantidad.textContent);
+        let idx = updateItemStorage(prod.id, qtty);
+        if (idx === -1){
+            prod.qtty = qtty;
+            saveToLocalStorage(prod);
+        }
+        toast(`${prod.title} agregado al carrito`, 'dark');
+        cartList();   
+    });
 }

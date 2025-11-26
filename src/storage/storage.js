@@ -19,3 +19,19 @@ export function saveToLocalStorage(item){
 export function setItemToLocalStorage(items){
     localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
 }
+
+export function updateItemStorage(itemId, qtty){
+    let dataStorage = getFromLocalStorage();
+    let idx = dataStorage.findIndex((p) =>p.id === itemId);
+    if (idx !== -1){
+        dataStorage[idx].qtty += qtty;
+        setItemToLocalStorage(dataStorage);
+    } 
+    return idx;
+}
+
+export function deleteItemStorage(itemId){
+    let productsStorage = getFromLocalStorage();
+    let newDataStorage = productsStorage.filter((p) => p.id !== itemId);
+    setItemToLocalStorage(newDataStorage);
+}
