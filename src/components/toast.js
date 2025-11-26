@@ -10,11 +10,11 @@ export function toast(mesage, color){
         </div>`;
     
     let toastContainer = document.querySelector('.toast-container');
-    toastContainer.innerHTML += template;
+    toastContainer.insertAdjacentHTML('beforeend', template);
 
-    const toasts = document.querySelector('.toast');
-    let lastToast = toasts[toasts.lenght -1];
+    const toasts = document.querySelectorAll('.toast');
+    let lastToast = toasts[toasts.length - 1];
 
-    const boostrapToast = new boostrap.Toast(lastToast, {delay: 2000});
-    boostrapToast.show();
+    const bootstrapToast = new bootstrap.Toast(lastToast, {delay: 2000});
+    bootstrapToast.show();
 }

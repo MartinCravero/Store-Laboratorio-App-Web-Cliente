@@ -1,6 +1,6 @@
-import { getFromLocalStorage, saveToLocalStorage, setItemToLocalStorage, updateItemStorage } from "../storage/storage.js";
+import { saveToLocalStorage, updateItemStorage } from "../storage/storage.js";
 import { cartList } from "./cartList.js";
-import { addEventListener, contador } from "./contador.js";
+import { addCounterEvents, contador } from "./contador.js";
 import { toast } from "./toast.js";
 
 export function Modal (prod){
@@ -19,7 +19,7 @@ export function Modal (prod){
                     <div class="col-md-6">
                         <img src="${prod.image}" class="img-fluid" alt="${prod.title}">
                     </div>
-                    <div class="col-md-6 d-flex justify-content-center aling-items-center">
+                    <div class="col-md-6 d-flex justify-content-center align-items-center">
                         <div class="d-flex flex-column gap-3">
                             <p>${prod.description}</p>
                             <p style="width:150px">
@@ -42,7 +42,7 @@ export function Modal (prod){
     const bootstrapModal = new bootstrap.Modal(container);
     bootstrapModal.show();
 
-    addEventListener(prod.id, 1);
+    addCounterEvents(prod.id, 1);
     let btnAddToCart = document.querySelector(`#addToCartBtn-${prod.id}`);
     btnAddToCart.addEventListener('click', ()=> {
         let inptcantidad = document.querySelector(`#contador-${prod.id}`);

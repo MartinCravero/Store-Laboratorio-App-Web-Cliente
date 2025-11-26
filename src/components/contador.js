@@ -1,7 +1,7 @@
 export function contador (id){
     
     let template = `
-        <div class="d-flex justify-content-center aling-items-center gap-3 my-3">
+        <div class="d-flex justify-content-center align-items-center gap-3 my-3">
             <button id="decrementBtn-${id}" class="btn btn-dark">-</button>
             <span id="contador-${id}">1</span>
             <button id="incrementBtn-${id}" class="btn btn-dark">+</button>
@@ -10,7 +10,7 @@ export function contador (id){
     return template;
 }
 
-export function addEventListener(id, cantidad){
+export function addCounterEvents(id, cantidad){
     let btnIncrement = document.querySelector(`#incrementBtn-${id}`)
     let btnDecrement = document.querySelector(`#decrementBtn-${id}`)
     let spanContador = document.querySelector(`#contador-${id}`)

@@ -1,3 +1,17 @@
 .modal-header{
     border-bottom: 1 px  solid #000000;
 }
+
+.navbar-nav .nav-link {
+    font-family: 'Lato', sans-serif;
+    font-weight: 400; /* normal */
+}
+
+.navbar-nav .nav-link.active {
+    font-weight: 700; 
+}
+
+.card-title {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+}
